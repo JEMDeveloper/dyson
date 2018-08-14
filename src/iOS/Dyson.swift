@@ -36,7 +36,7 @@ import Dyson
         
         let pendingUploads = EnrollmentHelper.sharedInstance.getTotalPendingUploads()
         let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: pendingUploads)
-
+        
         self.commandDelegate!.send(
             pluginResult,
             callbackId: command.callbackId
@@ -95,7 +95,9 @@ import Dyson
             
             self.commandDelegate!.send(
                 pluginResult,
-                
+                callbackId: command.callbackId
+            )
+            
         }
         
     }
@@ -147,7 +149,9 @@ import Dyson
             
             self.commandDelegate!.send(
                 pluginResult,
-                
+                callbackId: command.callbackId
+            )
+            
         }
         
     }
