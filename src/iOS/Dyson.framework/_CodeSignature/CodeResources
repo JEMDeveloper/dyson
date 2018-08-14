@@ -14,23 +14,23 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		44+RbaF7uBqDLo++mt0EQAmFPZg=
+		qwPxNo6lRGq6LvgUNOt5T9huLXk=
 		</data>
 		<key>Modules/Dyson.swiftmodule/arm.swiftdoc</key>
 		<data>
-		6BJEXaeyHXgY9Ro7Rw3dZ2AweqI=
+		pCm/EBjANYWumyH56Mp3DpXb7f0=
 		</data>
 		<key>Modules/Dyson.swiftmodule/arm.swiftmodule</key>
 		<data>
-		qQ9hML0Ict3g/z9TSZTUVneg8FM=
+		1mRzaEbMRKQBFvLzL5VnIZHHsMw=
 		</data>
 		<key>Modules/Dyson.swiftmodule/arm64.swiftdoc</key>
 		<data>
-		19SfdTj6sJm3uPKOq8myDW/la+0=
+		/d217IRl+SsIuzx2kMwtAqT+bL4=
 		</data>
 		<key>Modules/Dyson.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		O83bMwB2mHuB2MIuGPIHXCObuB8=
+		Bnxx14FIj/3srj7w4HOpYd6DQFw=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -65,44 +65,44 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			6BJEXaeyHXgY9Ro7Rw3dZ2AweqI=
+			pCm/EBjANYWumyH56Mp3DpXb7f0=
 			</data>
 			<key>hash2</key>
 			<data>
-			4kf1/0GKOF5T8774g1t0EU0yoLa9B3X20rI0LnoTECE=
+			3202GbIVzWQsakKsxbp1lwpKryL65qK4T+Ina3sZJjM=
 			</data>
 		</dict>
 		<key>Modules/Dyson.swiftmodule/arm.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			qQ9hML0Ict3g/z9TSZTUVneg8FM=
+			1mRzaEbMRKQBFvLzL5VnIZHHsMw=
 			</data>
 			<key>hash2</key>
 			<data>
-			PQKT2B+59+oP4QntNiLtVt70JVxuvSmUPc1I2p6gkdc=
+			nFsx51y3ZClUvrV4uf5vgeYsBModE8Xs7Fj6d1LROG8=
 			</data>
 		</dict>
 		<key>Modules/Dyson.swiftmodule/arm64.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			19SfdTj6sJm3uPKOq8myDW/la+0=
+			/d217IRl+SsIuzx2kMwtAqT+bL4=
 			</data>
 			<key>hash2</key>
 			<data>
-			nkkmmJiiyk1epZuUJAcQLZIwvZiUbyQ5tLkdqInSW2k=
+			zBTeXaGXmznNuAkuFIJa4aXF6erCAxkxRx6PVp4lW8Q=
 			</data>
 		</dict>
 		<key>Modules/Dyson.swiftmodule/arm64.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			O83bMwB2mHuB2MIuGPIHXCObuB8=
+			Bnxx14FIj/3srj7w4HOpYd6DQFw=
 			</data>
 			<key>hash2</key>
 			<data>
-			Ggi9WMvfT9PHozZVlq1ZiXCGq54YFosnx4ptjV4kLZw=
+			BdF8lp+yfWf4j7ioYzLbhpFN6LG5YC6x/hCoVTBAO6o=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
