@@ -87,6 +87,15 @@ import Dyson
                 
             }
             
+        }else{
+            pluginResult = CDVPluginResult(
+                status: CDVCommandStatus_ERROR,
+                messageAs: "Invalid parameters"
+            )
+            
+            self.commandDelegate!.send(
+                pluginResult,
+                
         }
         
     }
@@ -130,6 +139,15 @@ import Dyson
                 
             }
             
+        }else{
+            pluginResult = CDVPluginResult(
+                status: CDVCommandStatus_ERROR,
+                messageAs: "Invalid parameters"
+            )
+            
+            self.commandDelegate!.send(
+                pluginResult,
+                
         }
         
     }
