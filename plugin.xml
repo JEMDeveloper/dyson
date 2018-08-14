@@ -12,6 +12,7 @@
     <platform name="ios">
 
         <hook type="after_plugin_add" src="hooks/addEmbedded.js" />
+        <hook type="after_plugin_add" src="hooks/add-swift-support.js" />
 
         <config-file target="config.xml" parent="/*">
             <feature name="Dyson">
@@ -32,7 +33,7 @@
         <resource-file src="src/DB/data.db" target="data.db" />
 
 
-        <dependency id="cordova-plugin-add-swift-support" version="1.7.2"/>
+<!--        <dependency id="cordova-plugin-add-swift-support" version="1.7.2"/>-->
 
     </platform>
 
