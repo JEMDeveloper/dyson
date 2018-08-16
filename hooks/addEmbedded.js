@@ -83,7 +83,7 @@ module.exports = function(context) {
     addRunpathSearchBuildProperty(myProj, "Release");
 
     // unquote (remove trailing ")
-    var projectName = myProj.getFirstTarget().firstTarget.name;
+    var projectName = myProj.getFirstTarget().firstTarget.name.replace(/"/g,"");
     console.log(projectName);
     // projectName = projectName.substr(0, projectName.length-1); //Removing the char " at beginning and the end.
 
