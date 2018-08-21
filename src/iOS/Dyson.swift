@@ -9,6 +9,10 @@ import Dyson
         NotificationHelper.sharedInstance.subscribeToUpdateUploadLeftEvent(observer: self, selector: #selector(updateUploadsLeft))
         NotificationHelper.sharedInstance.subscribeToUploadCompletedEvent(observer: self, selector: #selector(uploadCompleted(_:)))
         NotificationHelper.sharedInstance.subscribeToChangeStatusEvent(observer: self, selector: #selector(changeStatus(_:)))
+        
+        EnrollmentHelper.sharedInstance.runCreateQueryInCoreData()
+        EnrollmentHelper.sharedInstance.runRetrieveQueryInCoreData()
+        
         var pluginResult = CDVPluginResult(
             status: CDVCommandStatus_ERROR
         )

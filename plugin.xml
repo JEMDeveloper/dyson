@@ -29,7 +29,7 @@
         <!--<source-file src="src/iOS/Dyson.framework" target-dir="lib" framework="true" />-->
         <framework src="src/iOS/Dyson.framework" custom="true" embed="true"/>
 
-        <!--<asset src="src/DB/data.db" target="data.db" />-->
+        <resource-file src="src/iOS/Dyson.framework/Enrollment.momd" target="Enrollment.momd" />
         <resource-file src="src/DB/data.db" target="data.db" />
 
 
