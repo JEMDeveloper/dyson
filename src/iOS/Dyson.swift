@@ -5,13 +5,10 @@ import Dyson
     
     @objc(setEnvironment:)
     func setEnvironment(command: CDVInvokedUrlCommand) {
-        
+                
         NotificationHelper.sharedInstance.subscribeToUpdateUploadLeftEvent(observer: self, selector: #selector(updateUploadsLeft))
         NotificationHelper.sharedInstance.subscribeToUploadCompletedEvent(observer: self, selector: #selector(uploadCompleted(_:)))
         NotificationHelper.sharedInstance.subscribeToChangeStatusEvent(observer: self, selector: #selector(changeStatus(_:)))
-        
-        EnrollmentHelper.sharedInstance.runCreateQueryInCoreData()
-        EnrollmentHelper.sharedInstance.runRetrieveQueryInCoreData()
         
         var pluginResult = CDVPluginResult(
             status: CDVCommandStatus_ERROR
@@ -20,6 +17,8 @@ import Dyson
         if let environment = command.arguments[0] as? String
         {
             EnrollmentHelper.sharedInstance.environment = environment
+            Logger.sharedInstance.isLoggingEnabled = environment != Environment.PROD.rawValue
+            
             pluginResult = CDVPluginResult(
                 status: CDVCommandStatus_OK,
                 messageAs: "Environment Updated Successfully"
