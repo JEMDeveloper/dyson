@@ -8,7 +8,7 @@ import Dyson
         
         NotificationHelper.sharedInstance.subscribeToUpdateUploadLeftEvent(observer: self, selector: #selector(updateUploadsLeft))
         NotificationHelper.sharedInstance.subscribeToUploadCompletedEvent(observer: self, selector: #selector(uploadCompleted(_:)))
-        
+        NotificationHelper.sharedInstance.subscribeToChangeStatusEvent(observer: self, selector: #selector(changeStatus(_:)))
         var pluginResult = CDVPluginResult(
             status: CDVCommandStatus_ERROR
         )
@@ -174,6 +174,13 @@ import Dyson
         let enrollmentKey = notification.userInfo?["enrollmentKey"] as! String
         
         let command = CDVPluginHelper.sharedInstance.getJavascriptUploadCompleteCommandFor(messageId : messageId,enrollmentKey : enrollmentKey)
+        self.commandDelegate.evalJs(command)
+    }
+    
+    @objc private func changeStatus(_ notification : NSNotification){
+        
+        let status = notification.userInfo?["status"] as! Int
+        let command = CDVPluginHelper.sharedInstance.getJavascriptChangeStatusCommandFor(status : status)
         self.commandDelegate.evalJs(command)
     }
     
