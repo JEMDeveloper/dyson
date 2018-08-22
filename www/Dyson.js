@@ -39,8 +39,12 @@ var Dyson = {
         exec(success, failure, PLUGIN_NAME, 'getPendingUploads', []);
     },
 
-    startTransmissionOfUploadsOnLogin: function () {
-        exec(null, null, PLUGIN_NAME, 'startTransmissionOfUploadsOnLogin', []);
+    startTransmissionOfUploads: function () {
+        exec(null, null, PLUGIN_NAME, 'startTransmissionOfUploads', []);
+    },
+
+    removeSuccessfulRecordsFromDevice: function () {
+        exec(null, null, PLUGIN_NAME, 'removeSuccessfulRecordsFromDevice', []);
     }
 
 };

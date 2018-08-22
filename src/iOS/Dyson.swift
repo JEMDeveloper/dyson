@@ -50,9 +50,14 @@ import Dyson
         
     }
     
-    @objc(startTransmissionOfUploadsOnLogin:)
-    func startTransmissionOfUploadsOnLogin(command: CDVInvokedUrlCommand) {
-        EnrollmentHelper.sharedInstance.startTransmissionOfUploadsOnLogin()
+    @objc(startTransmissionOfUploads:)
+    func startTransmissionOfUploads(command: CDVInvokedUrlCommand) {
+        EnrollmentHelper.sharedInstance.startTransmissionOfUploads()
+    }
+    
+    @objc(removeSuccessfulRecordsFromDevice:)
+    func removeSuccessfulRecordsFromDevice(command: CDVInvokedUrlCommand) {
+        EnrollmentHelper.sharedInstance.removeSuccessfulRecordsFromDevice()
     }
     
     @objc(startTransmissionOfEnrollmentEntry:)
