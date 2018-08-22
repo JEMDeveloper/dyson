@@ -5,7 +5,7 @@ import Dyson
     
     @objc(setEnvironment:)
     func setEnvironment(command: CDVInvokedUrlCommand) {
-                
+        
         NotificationHelper.sharedInstance.subscribeToUpdateUploadLeftEvent(observer: self, selector: #selector(updateUploadsLeft))
         NotificationHelper.sharedInstance.subscribeToUploadCompletedEvent(observer: self, selector: #selector(uploadCompleted(_:)))
         NotificationHelper.sharedInstance.subscribeToChangeStatusEvent(observer: self, selector: #selector(changeStatus(_:)))
@@ -63,10 +63,10 @@ import Dyson
         )
         
         if let enrollmentData = command.arguments[0] as? String,
-            let messageId = command.arguments[1] as? String,
+            let uniqueId = command.arguments[1] as? String,
             let enrollmentIdentifier = command.arguments[2] as? String
         {
-            let enrollmentEntry = ACPTModel(uniqueMessageID: messageId, data: enrollmentData, status: "\(EnrollmentStatusType.SEND_TO_HQ_INITIATED)", environment: EnrollmentHelper.sharedInstance.environment, enrollmentIdentifier: enrollmentIdentifier)
+            let enrollmentEntry = ACPTModel(uniqueMessageID: uniqueId, data: enrollmentData, status: "\(EnrollmentStatusType.SEND_TO_HQ_INITIATED)", environment: EnrollmentHelper.sharedInstance.environment, enrollmentIdentifier: enrollmentIdentifier)
             
             EnrollmentHelper.sharedInstance.startTransmissionOfCompleteEnrollment(entry: enrollmentEntry)
             { (error, response) in
@@ -117,11 +117,11 @@ import Dyson
         )
         
         if let enrollmentData = command.arguments[0] as? String,
-            let messageId = command.arguments[1] as? String,
+            let uniqueId = command.arguments[1] as? String,
             let blobFolder = command.arguments[2] as? String,
             let enrollmentIdentifier = command.arguments[3] as? String
         {
-            let enrollmentEntry = ACPTModel(uniqueMessageID: messageId, data: enrollmentData, status: "\(EnrollmentStatusType.SEND_TO_BLOB_INITIATED)", environment: EnrollmentHelper.sharedInstance.environment, enrollmentIdentifier: enrollmentIdentifier)
+            let enrollmentEntry = ACPTModel(uniqueMessageID: uniqueId, data: enrollmentData, status: "\(EnrollmentStatusType.SEND_TO_BLOB_INITIATED)", environment: EnrollmentHelper.sharedInstance.environment, enrollmentIdentifier: enrollmentIdentifier)
             
             EnrollmentHelper.sharedInstance.startTransmissionOfBlob(entry: enrollmentEntry, blobFolder: blobFolder)
             {
@@ -174,9 +174,8 @@ import Dyson
     @objc private func uploadCompleted(_ notification : NSNotification){
         
         let messageId = notification.userInfo?["messageId"] as! String
-        let enrollmentKey = notification.userInfo?["enrollmentKey"] as! String
         
-        let command = CDVPluginHelper.sharedInstance.getJavascriptUploadCompleteCommandFor(messageId : messageId,enrollmentKey : enrollmentKey)
+        let command = CDVPluginHelper.sharedInstance.getJavascriptUploadCompleteCommandFor(messageId : messageId)
         self.commandDelegate.evalJs(command)
     }
     
