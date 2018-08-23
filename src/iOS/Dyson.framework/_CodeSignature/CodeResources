@@ -14,7 +14,7 @@
 		</data>
 		<key>Headers/Dyson-Swift.h</key>
 		<data>
-		mXzZuXvkhuwsFLbVJ66fUEFUk1w=
+		HnDIGpNFLDNXbN6pEewc/euukEM=
 		</data>
 		<key>Headers/Dyson.h</key>
 		<data>
@@ -26,19 +26,19 @@
 		</data>
 		<key>Modules/Dyson.swiftmodule/arm.swiftdoc</key>
 		<data>
-		pCm/EBjANYWumyH56Mp3DpXb7f0=
+		jbIt/XyXFnqc2qhkbs9RJNJxglY=
 		</data>
 		<key>Modules/Dyson.swiftmodule/arm.swiftmodule</key>
 		<data>
-		IB+IzXCtQj5awu2VKQgBr5Tm9QI=
+		3oRsKcTM0gLvxpKqXuhH+NmS6bI=
 		</data>
 		<key>Modules/Dyson.swiftmodule/arm64.swiftdoc</key>
 		<data>
-		/d217IRl+SsIuzx2kMwtAqT+bL4=
+		yYALKJlfyo78XZbUqDJsMIC8pKw=
 		</data>
 		<key>Modules/Dyson.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		zeiov03g8AtqgvYs4D/dLV+Hj0k=
+		zA4RLR32ttgFfllaSSbAMxqj9yY=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -73,11 +73,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			mXzZuXvkhuwsFLbVJ66fUEFUk1w=
+			HnDIGpNFLDNXbN6pEewc/euukEM=
 			</data>
 			<key>hash2</key>
 			<data>
-			euhSqkThaYRCUvkntRW+oJW/qlAJgzsBLLzy1AouC+I=
+			4MJuBn6LgD66hqb9yqbFHlsp1mY6KJNSfjaQvJzovSQ=
 			</data>
 		</dict>
 		<key>Headers/Dyson.h</key>
@@ -95,44 +95,44 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			pCm/EBjANYWumyH56Mp3DpXb7f0=
+			jbIt/XyXFnqc2qhkbs9RJNJxglY=
 			</data>
 			<key>hash2</key>
 			<data>
-			3202GbIVzWQsakKsxbp1lwpKryL65qK4T+Ina3sZJjM=
+			p3EkN91E+SWQioc/MHn7zAE1dGFs4CFFpJ7usqsVihw=
 			</data>
 		</dict>
 		<key>Modules/Dyson.swiftmodule/arm.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			IB+IzXCtQj5awu2VKQgBr5Tm9QI=
+			3oRsKcTM0gLvxpKqXuhH+NmS6bI=
 			</data>
 			<key>hash2</key>
 			<data>
-			KqLK8kUN8Lwu72QlrWxPKz7+gjcGO1v6uOQDvVHO8P8=
+			k8LTcKP4K1WxV4I1LLfOnVwDdfCXVqvS+MGvRh3udC0=
 			</data>
 		</dict>
 		<key>Modules/Dyson.swiftmodule/arm64.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			/d217IRl+SsIuzx2kMwtAqT+bL4=
+			yYALKJlfyo78XZbUqDJsMIC8pKw=
 			</data>
 			<key>hash2</key>
 			<data>
-			zBTeXaGXmznNuAkuFIJa4aXF6erCAxkxRx6PVp4lW8Q=
+			rp0K5wnYFb4rXDef9scyrc5Lq7jBAM/mSBlPGHNXKU4=
 			</data>
 		</dict>
 		<key>Modules/Dyson.swiftmodule/arm64.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			zeiov03g8AtqgvYs4D/dLV+Hj0k=
+			zA4RLR32ttgFfllaSSbAMxqj9yY=
 			</data>
 			<key>hash2</key>
 			<data>
-			cT0WqzsGQjw2Ugr/k5OdPOTwKNiRJGd2Y9h9XzxnzEU=
+			bYwd8s0+M+4IUQNVeI2tQSBXxQzUXvDv1VOFJeoring=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
