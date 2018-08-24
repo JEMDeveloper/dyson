@@ -86,7 +86,7 @@ import Dyson
                 if(error == nil){
                     pluginResult = CDVPluginResult(
                         status: CDVCommandStatus_OK,
-                        messageAs: response
+                        messageAs: uniqueId
                     )
                     Logger.sharedInstance.logInfo(info: "Data Sent Successfully!")
                     Logger.sharedInstance.logInfo(info: "Data received is \(response!)")
@@ -94,9 +94,9 @@ import Dyson
                 else{
                     pluginResult = CDVPluginResult(
                         status: CDVCommandStatus_ERROR,
-                        messageAs: error?.localizedDescription
+                        messageAs: uniqueId
                     )
-                    Logger.sharedInstance.logError(error: "Data Send Failed!")
+                    Logger.sharedInstance.logError(error: "Data Send Failed! : \(error?.localizedDescription)")
                 }
                 
                 self.commandDelegate!.send(
@@ -142,7 +142,7 @@ import Dyson
                 if(error == nil){
                     pluginResult = CDVPluginResult(
                         status: CDVCommandStatus_OK,
-                        messageAs: response
+                        messageAs: uniqueId
                     )
                     Logger.sharedInstance.logInfo(info: "Blob Sent Successfully!")
                     Logger.sharedInstance.logInfo(info: "Response received is \(response!)")
@@ -150,9 +150,9 @@ import Dyson
                 else{
                     pluginResult = CDVPluginResult(
                         status: CDVCommandStatus_ERROR,
-                        messageAs: error?.localizedDescription
+                        messageAs: uniqueId
                     )
-                    Logger.sharedInstance.logError(error: "Blob Send Failed!")
+                    Logger.sharedInstance.logError(error: "Blob Send Failed! : \(String(describing: error?.localizedDescription))")
                 }
                 
                 self.commandDelegate!.send(
