@@ -6,11 +6,11 @@ import Dyson
     @objc(setEnvironment:)
     func setEnvironment(command: CDVInvokedUrlCommand) {
         
-        NotificationHelper.sharedInstance.subscribeToUpdateUploadLeftEvent(observer: self, selector: #selector(updateUploadsLeft))
+        NotificationHelper.sharedInstance.subscribeToPendingUploadsEvent(observer: self, selector: #selector(updateUploadsLeft(_:)))
         NotificationHelper.sharedInstance.subscribeToUploadCompletedEvent(observer: self, selector: #selector(uploadCompleted(_:)))
         NotificationHelper.sharedInstance.subscribeToChangeStatusEvent(observer: self, selector: #selector(changeStatus(_:)))
         
-//        EnrollmentHelper.sharedInstance.emptyDataBase()
+//        UploadManager.sharedInstance.emptyDataBase()
         
         var pluginResult = CDVPluginResult(
             status: CDVCommandStatus_ERROR
@@ -18,7 +18,7 @@ import Dyson
         
         if let environment = command.arguments[0] as? String
         {
-            EnrollmentHelper.sharedInstance.environment = environment
+            UploadManager.sharedInstance.environment = environment
             Logger.sharedInstance.isLoggingEnabled = environment != Environment.PROD.rawValue
             
             pluginResult = CDVPluginResult(
@@ -42,7 +42,7 @@ import Dyson
     @objc(getPendingUploads:)
     func getPendingUploads(command: CDVInvokedUrlCommand) {
         
-        let pendingUploads = EnrollmentHelper.sharedInstance.getTotalPendingUploads()
+        let pendingUploads = UploadManager.sharedInstance.getTotalPendingUploads()
         let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: pendingUploads)
         
         self.commandDelegate!.send(
@@ -54,17 +54,17 @@ import Dyson
     
     @objc(startTransmissionOfUploadsOnLogin:)
     func startTransmissionOfUploadsOnLogin(command: CDVInvokedUrlCommand) {
-        EnrollmentHelper.sharedInstance.startTransmissionOfUploadsOnLogin()
+        UploadManager.sharedInstance.startUploadingEnrollmentsFromDB(andKeychain: true)
     }
     
     @objc(startTransmissionOfUploads:)
     func startTransmissionOfUploads(command: CDVInvokedUrlCommand) {
-        EnrollmentHelper.sharedInstance.startUploadingEnrollmentsFromDB()
+        UploadManager.sharedInstance.startUploadingEnrollmentsFromDB(andKeychain: false)
     }
     
     @objc(removeSuccessfulRecordsFromDevice:)
     func removeSuccessfulRecordsFromDevice(command: CDVInvokedUrlCommand) {
-        EnrollmentHelper.sharedInstance.removeSuccessfulRecordsFromDevice()
+        UploadManager.sharedInstance.removeSuccessfulRecordsFromDevice()
     }
     
     @objc(startTransmissionOfEnrollmentEntry:)
@@ -78,9 +78,9 @@ import Dyson
             let uniqueId = command.arguments[1] as? String,
             let enrollmentIdentifier = command.arguments[2] as? String
         {
-            let enrollmentEntry = ACPTModel(uniqueMessageID: uniqueId, data: enrollmentData, status: "\(EnrollmentStatusType.SEND_TO_HQ_INITIATED)", environment: EnrollmentHelper.sharedInstance.environment, enrollmentIdentifier: enrollmentIdentifier)
+            let enrollmentEntry = ACPTModel(uniqueMessageID: uniqueId, data: enrollmentData, status: "\(EnrollmentStatusType.SEND_TO_HQ_INITIATED)", enrollmentIdentifier: enrollmentIdentifier)
             
-            EnrollmentHelper.sharedInstance.startTransmissionOfCompleteEnrollment(entry: enrollmentEntry)
+            UploadManager.sharedInstance.startTransmissionOfCompleteEnrollment(entry: enrollmentEntry)
             { (error, response) in
                 
                 if(error == nil){
@@ -133,9 +133,9 @@ import Dyson
             let blobFolder = command.arguments[2] as? String,
             let enrollmentIdentifier = command.arguments[3] as? String
         {
-            let enrollmentEntry = ACPTModel(uniqueMessageID: uniqueId, data: enrollmentData, status: "\(EnrollmentStatusType.SEND_TO_BLOB_INITIATED)", environment: EnrollmentHelper.sharedInstance.environment, enrollmentIdentifier: enrollmentIdentifier)
+            let enrollmentEntry = ACPTModel(uniqueMessageID: uniqueId, data: enrollmentData, status: "\(EnrollmentStatusType.SEND_TO_BLOB_INITIATED)", enrollmentIdentifier: enrollmentIdentifier)
             
-            EnrollmentHelper.sharedInstance.startTransmissionOfBlob(entry: enrollmentEntry, blobFolder: blobFolder)
+            UploadManager.sharedInstance.startTransmissionOfBlob(entry: enrollmentEntry, blobFolder: blobFolder)
             {
                 (error, response) in
                 
@@ -177,8 +177,8 @@ import Dyson
         
     }
     
-    @objc private func updateUploadsLeft(){
-        let pendingUploads = EnrollmentHelper.sharedInstance.getTotalPendingUploads()
+    @objc private func updateUploadsLeft(_ notification : NSNotification){
+        let pendingUploads = notification.userInfo?["pendingUploads"] as! Int
         let command = CDVPluginHelper.sharedInstance.getJavascriptChangeUpdateCurrentUploadedItemsCommandFor(uploadsLeft: pendingUploads)
         self.commandDelegate.evalJs(command)
     }
