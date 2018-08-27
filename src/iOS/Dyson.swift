@@ -3,12 +3,19 @@ import Dyson
 @available(iOS 10.0, *)
 @objc(Dyson) class Dyson : CDVPlugin {
     
+    private var hasSubscribedToNotifications = false
+    
     @objc(setEnvironment:)
     func setEnvironment(command: CDVInvokedUrlCommand) {
         
-        NotificationHelper.sharedInstance.subscribeToPendingUploadsEvent(observer: self, selector: #selector(updateUploadsLeft(_:)))
-        NotificationHelper.sharedInstance.subscribeToUploadCompletedEvent(observer: self, selector: #selector(uploadCompleted(_:)))
-        NotificationHelper.sharedInstance.subscribeToChangeStatusEvent(observer: self, selector: #selector(changeStatus(_:)))
+        if !hasSubscribedToNotifications
+        {
+            NotificationHelper.sharedInstance.subscribeToPendingUploadsEvent(observer: self, selector: #selector(updateUploadsLeft(_:)))
+            NotificationHelper.sharedInstance.subscribeToUploadCompletedEvent(observer: self, selector: #selector(uploadCompleted(_:)))
+            NotificationHelper.sharedInstance.subscribeToChangeStatusEvent(observer: self, selector: #selector(changeStatus(_:)))
+            
+            self.hasSubscribedToNotifications = true
+        }
         
 //        UploadManager.sharedInstance.emptyDataBase()
         
@@ -54,17 +61,23 @@ import Dyson
     
     @objc(startTransmissionOfUploadsOnLogin:)
     func startTransmissionOfUploadsOnLogin(command: CDVInvokedUrlCommand) {
-        UploadManager.sharedInstance.startUploadingEnrollmentsFromDB(andKeychain: true)
+        DispatchQueue.global(qos: .background).async {
+            UploadManager.sharedInstance.startUploadingEnrollmentsFromDB(andKeychain: true)
+        }
     }
     
     @objc(startTransmissionOfUploads:)
     func startTransmissionOfUploads(command: CDVInvokedUrlCommand) {
-        UploadManager.sharedInstance.startUploadingEnrollmentsFromDB(andKeychain: false)
+        DispatchQueue.global(qos: .background).async {
+            UploadManager.sharedInstance.startUploadingEnrollmentsFromDB(andKeychain: false)
+        }
     }
     
     @objc(removeSuccessfulRecordsFromDevice:)
     func removeSuccessfulRecordsFromDevice(command: CDVInvokedUrlCommand) {
-        UploadManager.sharedInstance.removeSuccessfulRecordsFromDevice()
+        DispatchQueue.global(qos: .background).async {
+            UploadManager.sharedInstance.removeSuccessfulRecordsFromDevice()
+        }
     }
     
     @objc(startTransmissionOfEnrollmentEntry:)
@@ -78,31 +91,35 @@ import Dyson
             let uniqueId = command.arguments[1] as? String,
             let enrollmentIdentifier = command.arguments[2] as? String
         {
-            let enrollmentEntry = ACPTModel(uniqueMessageID: uniqueId, data: enrollmentData, status: "\(EnrollmentStatusType.SEND_TO_HQ_INITIATED)", enrollmentIdentifier: enrollmentIdentifier)
+            DispatchQueue.global(qos: .background).async {
             
-            UploadManager.sharedInstance.startTransmissionOfCompleteEnrollment(entry: enrollmentEntry)
-            { (error, response) in
+                let enrollmentEntry = ACPTModel(uniqueMessageID: uniqueId, data: enrollmentData, status: "\(EnrollmentStatusType.SEND_TO_HQ_INITIATED)", enrollmentIdentifier: enrollmentIdentifier)
                 
-                if(error == nil){
-                    pluginResult = CDVPluginResult(
-                        status: CDVCommandStatus_OK,
-                        messageAs: uniqueId
+                UploadManager.sharedInstance.startTransmissionOfCompleteEnrollment(entry: enrollmentEntry)
+                { (error, response) in
+                    
+                    if(error == nil){
+                        pluginResult = CDVPluginResult(
+                            status: CDVCommandStatus_OK,
+                            messageAs: uniqueId
+                        )
+                        Logger.sharedInstance.logInfo(info: "Data Sent Successfully!")
+                        Logger.sharedInstance.logInfo(info: "Data received is \(response!)")
+                    }
+                    else{
+                        pluginResult = CDVPluginResult(
+                            status: CDVCommandStatus_ERROR,
+                            messageAs: uniqueId
+                        )
+                        Logger.sharedInstance.logError(error: "Data Send Failed! : \(error?.localizedDescription)")
+                    }
+                    
+                    self.commandDelegate!.send(
+                        pluginResult,
+                        callbackId: command.callbackId
                     )
-                    Logger.sharedInstance.logInfo(info: "Data Sent Successfully!")
-                    Logger.sharedInstance.logInfo(info: "Data received is \(response!)")
+                    
                 }
-                else{
-                    pluginResult = CDVPluginResult(
-                        status: CDVCommandStatus_ERROR,
-                        messageAs: uniqueId
-                    )
-                    Logger.sharedInstance.logError(error: "Data Send Failed! : \(error?.localizedDescription)")
-                }
-                
-                self.commandDelegate!.send(
-                    pluginResult,
-                    callbackId: command.callbackId
-                )
                 
             }
             
@@ -133,33 +150,35 @@ import Dyson
             let blobFolder = command.arguments[2] as? String,
             let enrollmentIdentifier = command.arguments[3] as? String
         {
-            let enrollmentEntry = ACPTModel(uniqueMessageID: uniqueId, data: enrollmentData, status: "\(EnrollmentStatusType.SEND_TO_BLOB_INITIATED)", enrollmentIdentifier: enrollmentIdentifier)
-            
-            UploadManager.sharedInstance.startTransmissionOfBlob(entry: enrollmentEntry, blobFolder: blobFolder)
-            {
-                (error, response) in
+            DispatchQueue.global(qos: .background).async {
+                let enrollmentEntry = ACPTModel(uniqueMessageID: uniqueId, data: enrollmentData, status: "\(EnrollmentStatusType.SEND_TO_BLOB_INITIATED)", enrollmentIdentifier: enrollmentIdentifier)
                 
-                if(error == nil){
-                    pluginResult = CDVPluginResult(
-                        status: CDVCommandStatus_OK,
-                        messageAs: uniqueId
+                UploadManager.sharedInstance.startTransmissionOfBlob(entry: enrollmentEntry, blobFolder: blobFolder)
+                {
+                    (error, response) in
+                    
+                    if(error == nil){
+                        pluginResult = CDVPluginResult(
+                            status: CDVCommandStatus_OK,
+                            messageAs: uniqueId
+                        )
+                        Logger.sharedInstance.logInfo(info: "Blob Sent Successfully!")
+                        Logger.sharedInstance.logInfo(info: "Response received is \(response!)")
+                    }
+                    else{
+                        pluginResult = CDVPluginResult(
+                            status: CDVCommandStatus_ERROR,
+                            messageAs: uniqueId
+                        )
+                        Logger.sharedInstance.logError(error: "Blob Send Failed! : \(String(describing: error?.localizedDescription))")
+                    }
+                    
+                    self.commandDelegate!.send(
+                        pluginResult,
+                        callbackId: command.callbackId
                     )
-                    Logger.sharedInstance.logInfo(info: "Blob Sent Successfully!")
-                    Logger.sharedInstance.logInfo(info: "Response received is \(response!)")
+                    
                 }
-                else{
-                    pluginResult = CDVPluginResult(
-                        status: CDVCommandStatus_ERROR,
-                        messageAs: uniqueId
-                    )
-                    Logger.sharedInstance.logError(error: "Blob Send Failed! : \(String(describing: error?.localizedDescription))")
-                }
-                
-                self.commandDelegate!.send(
-                    pluginResult,
-                    callbackId: command.callbackId
-                )
-                
             }
             
         }else{
