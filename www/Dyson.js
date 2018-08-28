@@ -39,6 +39,10 @@ var Dyson = {
         exec(success, failure, PLUGIN_NAME, 'getPendingUploads', []);
     },
 
+    getCompleteUploadIds: function (success) {
+        exec(success, null, PLUGIN_NAME, 'getCompleteUploadIds', []);
+    },
+
     startTransmissionOfUploads: function () {
         exec(null, null, PLUGIN_NAME, 'startTransmissionOfUploads', []);
     },

@@ -4,9 +4,12 @@ import Dyson
 @objc(Dyson) class Dyson : CDVPlugin {
     
     private var hasSubscribedToNotifications = false
+    var completedUploadsIds : [String]!
     
     @objc(setEnvironment:)
     func setEnvironment(command: CDVInvokedUrlCommand) {
+        
+        self.completedUploadsIds = [String]()
         
         if !hasSubscribedToNotifications
         {
@@ -59,6 +62,21 @@ import Dyson
         
     }
     
+    @objc(getCompleteUploadIds:)
+    func getCompleteUploadIds(command: CDVInvokedUrlCommand) {
+        
+        var pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: [])
+        if let uploadCompleted = self.completedUploadsIds
+        {
+            pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: uploadCompleted)
+        }
+        
+        self.commandDelegate!.send(
+            pluginResult,
+            callbackId: command.callbackId
+        )
+    }
+    
     @objc(startTransmissionOfUploadsOnLogin:)
     func startTransmissionOfUploadsOnLogin(command: CDVInvokedUrlCommand) {
         DispatchQueue.global(qos: .background).async {
@@ -86,7 +104,6 @@ import Dyson
         var pluginResult = CDVPluginResult(
             status: CDVCommandStatus_ERROR
         )
-        
         if let enrollmentData = command.arguments[0] as? String,
             let uniqueId = command.arguments[1] as? String,
             let enrollmentIdentifier = command.arguments[2] as? String
@@ -199,21 +216,22 @@ import Dyson
     @objc private func updateUploadsLeft(_ notification : NSNotification){
         let pendingUploads = notification.userInfo?["pendingUploads"] as! Int
         let command = CDVPluginHelper.sharedInstance.getJavascriptChangeUpdateCurrentUploadedItemsCommandFor(uploadsLeft: pendingUploads)
+        Logger.sharedInstance.logInfo(info: "updateUploadsLeft : \(command)")
         self.commandDelegate.evalJs(command)
     }
     
     @objc private func uploadCompleted(_ notification : NSNotification){
-        
         let messageId = notification.userInfo?["messageId"] as! String
-        
-        let command = CDVPluginHelper.sharedInstance.getJavascriptUploadCompleteCommandFor(messageId : messageId)
+        Logger.sharedInstance.logInfo(info: "uploadCompleted : \(self.completedUploadsIds)")
+        self.completedUploadsIds.append(messageId)
+        let command = "window.uploadCompleted();"
         self.commandDelegate.evalJs(command)
     }
     
     @objc private func changeStatus(_ notification : NSNotification){
-        
         let status = notification.userInfo?["status"] as! Int
         let command = CDVPluginHelper.sharedInstance.getJavascriptChangeStatusCommandFor(status : status)
+        Logger.sharedInstance.logInfo(info: "changeStatus : \(command)")
         self.commandDelegate.evalJs(command)
     }
     
