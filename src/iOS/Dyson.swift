@@ -29,7 +29,7 @@ import Dyson
         if let environment = command.arguments[0] as? String
         {
             UploadManager.sharedInstance.environment = environment
-            Logger.sharedInstance.isLoggingEnabled = environment != Environment.PROD.rawValue
+            Logger.sharedInstance.isLoggingEnabled = true
             
             pluginResult = CDVPluginResult(
                 status: CDVCommandStatus_OK,
