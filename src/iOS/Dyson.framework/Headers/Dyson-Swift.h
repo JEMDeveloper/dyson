@@ -193,7 +193,7 @@ SWIFT_CLASS("_TtC5Dyson20DatastoreCoordinator") SWIFT_AVAILABILITY(ios,introduce
 @class NSEntityDescription;
 @class NSManagedObjectContext;
 
-SWIFT_CLASS("_TtC5Dyson10Enrollment")
+SWIFT_CLASS_NAMED("Enrollment")
 @interface Enrollment : NSManagedObject
 - (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -201,6 +201,7 @@ SWIFT_CLASS("_TtC5Dyson10Enrollment")
 @class NSDate;
 
 @interface Enrollment (SWIFT_EXTENSION(Dyson))
+- (void)awakeFromInsert;
 @property (nonatomic, copy) NSString * _Nullable containerData;
 @property (nonatomic, strong) NSDate * _Nullable createdAt;
 @property (nonatomic, copy) NSString * _Nullable enrollmentData;
@@ -208,7 +209,6 @@ SWIFT_CLASS("_TtC5Dyson10Enrollment")
 @property (nonatomic, copy) NSString * _Nullable enrollmentType;
 @property (nonatomic, copy) NSString * _Nullable messageId;
 @property (nonatomic, copy) NSString * _Nullable status;
-@property (nonatomic) int16_t retryCount;
 @end
 
 

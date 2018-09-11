@@ -20,7 +20,7 @@ var Dyson = {
 
     startTransmissionOfEnrollmentEntry: function (success,failure,data) {
         var enrollmentData = data.enrollmentData;
-        var uniqueId = this.generateUUID();
+        var uniqueId = data.messageId;//this.generateUUID();
         var enrollmentKey = data.enrollmentKey;
 
         exec(success, failure, PLUGIN_NAME, 'startTransmissionOfEnrollmentEntry', [enrollmentData,uniqueId,enrollmentKey]);
@@ -30,7 +30,7 @@ var Dyson = {
         var enrollmentData = data.enrollmentData;
         var enrollmentKey = data.enrollmentKey;
         var blobContainer = data.blobContainer;
-        var uniqueId = this.generateUUID();
+        var uniqueId = !!data.photoName && data.photoName || this.generateUUID();
 
         exec(success, failure, PLUGIN_NAME, 'startTransmissionOfBlob', [enrollmentData,uniqueId,blobContainer,enrollmentKey]);
     },
