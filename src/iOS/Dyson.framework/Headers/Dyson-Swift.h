@@ -233,6 +233,32 @@ SWIFT_CLASS("_TtC5Dyson15SessionDelegate")
 @end
 
 @class NSURLSession;
+@class NSURLAuthenticationChallenge;
+@class NSURLCredential;
+
+@interface SessionDelegate (SWIFT_EXTENSION(Dyson)) <NSURLSessionDelegate>
+/// Tells the delegate that the session has been invalidated.
+/// \param session The session object that was invalidated.
+///
+/// \param error The error that caused invalidation, or nil if the invalidation was explicit.
+///
+- (void)URLSession:(NSURLSession * _Nonnull)session didBecomeInvalidWithError:(NSError * _Nullable)error;
+/// Requests credentials from the delegate in response to a session-level authentication request from the
+/// remote server.
+/// \param session The session containing the task that requested authentication.
+///
+/// \param challenge An object that contains the request for authentication.
+///
+/// \param completionHandler A handler that your delegate method must call providing the disposition
+/// and credential.
+///
+- (void)URLSession:(NSURLSession * _Nonnull)session didReceiveChallenge:(NSURLAuthenticationChallenge * _Nonnull)challenge completionHandler:(void (^ _Nonnull)(enum NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler;
+/// Tells the delegate that all messages enqueued for a session have been delivered.
+/// \param session The session that no longer has any outstanding requests.
+///
+- (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession * _Nonnull)session;
+@end
+
 @class NSURLSessionDownloadTask;
 
 @interface SessionDelegate (SWIFT_EXTENSION(Dyson)) <NSURLSessionDownloadDelegate>
@@ -277,32 +303,6 @@ SWIFT_CLASS("_TtC5Dyson15SessionDelegate")
 - (void)URLSession:(NSURLSession * _Nonnull)session downloadTask:(NSURLSessionDownloadTask * _Nonnull)downloadTask didResumeAtOffset:(int64_t)fileOffset expectedTotalBytes:(int64_t)expectedTotalBytes;
 @end
 
-@class NSURLAuthenticationChallenge;
-@class NSURLCredential;
-
-@interface SessionDelegate (SWIFT_EXTENSION(Dyson)) <NSURLSessionDelegate>
-/// Tells the delegate that the session has been invalidated.
-/// \param session The session object that was invalidated.
-///
-/// \param error The error that caused invalidation, or nil if the invalidation was explicit.
-///
-- (void)URLSession:(NSURLSession * _Nonnull)session didBecomeInvalidWithError:(NSError * _Nullable)error;
-/// Requests credentials from the delegate in response to a session-level authentication request from the
-/// remote server.
-/// \param session The session containing the task that requested authentication.
-///
-/// \param challenge An object that contains the request for authentication.
-///
-/// \param completionHandler A handler that your delegate method must call providing the disposition
-/// and credential.
-///
-- (void)URLSession:(NSURLSession * _Nonnull)session didReceiveChallenge:(NSURLAuthenticationChallenge * _Nonnull)challenge completionHandler:(void (^ _Nonnull)(NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler;
-/// Tells the delegate that all messages enqueued for a session have been delivered.
-/// \param session The session that no longer has any outstanding requests.
-///
-- (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession * _Nonnull)session;
-@end
-
 @class NSURLSessionDataTask;
 @class NSURLResponse;
 @class NSCachedURLResponse;
@@ -319,7 +319,7 @@ SWIFT_CLASS("_TtC5Dyson15SessionDelegate")
 /// constant to indicate whether the transfer should continue as a data task or
 /// should become a download task.
 ///
-- (void)URLSession:(NSURLSession * _Nonnull)session dataTask:(NSURLSessionDataTask * _Nonnull)dataTask didReceiveResponse:(NSURLResponse * _Nonnull)response completionHandler:(void (^ _Nonnull)(NSURLSessionResponseDisposition))completionHandler;
+- (void)URLSession:(NSURLSession * _Nonnull)session dataTask:(NSURLSessionDataTask * _Nonnull)dataTask didReceiveResponse:(NSURLResponse * _Nonnull)response completionHandler:(void (^ _Nonnull)(enum NSURLSessionResponseDisposition))completionHandler;
 /// Tells the delegate that the data task was changed to a download task.
 /// \param session The session containing the task that was replaced by a download task.
 ///
@@ -418,7 +418,7 @@ SWIFT_AVAILABILITY(tvos,introduced=9.0) SWIFT_AVAILABILITY(macos,introduced=10.1
 /// \param completionHandler A handler that your delegate method must call providing the disposition
 /// and credential.
 ///
-- (void)URLSession:(NSURLSession * _Nonnull)session task:(NSURLSessionTask * _Nonnull)task didReceiveChallenge:(NSURLAuthenticationChallenge * _Nonnull)challenge completionHandler:(void (^ _Nonnull)(NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler;
+- (void)URLSession:(NSURLSession * _Nonnull)session task:(NSURLSessionTask * _Nonnull)task didReceiveChallenge:(NSURLAuthenticationChallenge * _Nonnull)challenge completionHandler:(void (^ _Nonnull)(enum NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler;
 /// Tells the delegate when a task requires a new request body stream to send to the remote server.
 /// \param session The session containing the task that needs a new body stream.
 ///

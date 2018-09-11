@@ -21,18 +21,18 @@ var Dyson = {
     startTransmissionOfEnrollmentEntry: function (success,failure,data) {
         var enrollmentData = data.enrollmentData;
         var uniqueId = this.generateUUID();
-        var messageId = data.messageId;
+        var enrollmentKey = data.enrollmentKey;
 
-        exec(success, failure, PLUGIN_NAME, 'startTransmissionOfEnrollmentEntry', [enrollmentData,uniqueId,messageId]);
+        exec(success, failure, PLUGIN_NAME, 'startTransmissionOfEnrollmentEntry', [enrollmentData,uniqueId,enrollmentKey]);
     },
 
     startTransmissionOfBlob: function (success,failure,data) {
         var enrollmentData = data.enrollmentData;
-        var messageId = data.messageId;
+        var enrollmentKey = data.enrollmentKey;
         var blobContainer = data.blobContainer;
         var uniqueId = this.generateUUID();
 
-        exec(success, failure, PLUGIN_NAME, 'startTransmissionOfBlob', [enrollmentData,uniqueId,blobContainer,messageId]);
+        exec(success, failure, PLUGIN_NAME, 'startTransmissionOfBlob', [enrollmentData,uniqueId,blobContainer,enrollmentKey]);
     },
 
     getPendingUploads: function (success,failure) {

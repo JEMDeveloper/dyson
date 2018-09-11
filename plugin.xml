@@ -30,7 +30,7 @@
         <framework src="src/iOS/Dyson.framework" custom="true" embed="true"/>
 
         <resource-file src="src/iOS/Dyson.framework/Enrollment.momd" target="Enrollment.momd" />
-        <resource-file src="src/DB/data.db" target="data.db" />
+        <!--<resource-file src="src/DB/data.db" target="data.db" />-->
 
 
 <!--        <dependency id="cordova-plugin-add-swift-support" version="1.7.2"/>-->
