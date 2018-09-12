@@ -57,6 +57,10 @@ var Dyson = {
 
     removeSuccessfulRecordsFromDevice: function () {
         exec(null, null, PLUGIN_NAME, 'removeSuccessfulRecordsFromDevice', []);
+    },
+
+    getPendingEnrollmentsCountExcludingEnrollmentKey: function(success,enrollmentKey) {
+        exec(success, null, PLUGIN_NAME, 'getPendingEnrollmentsCountExcludingEnrollmentKey', [enrollmentKey]);
     }
 
 };

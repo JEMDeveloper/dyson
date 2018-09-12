@@ -16,6 +16,7 @@ import Dyson
             NotificationHelper.sharedInstance.subscribeToPendingUploadsEvent(observer: self, selector: #selector(updateUploadsLeft(_:)))
             NotificationHelper.sharedInstance.subscribeToUploadCompletedEvent(observer: self, selector: #selector(uploadCompleted(_:)))
             NotificationHelper.sharedInstance.subscribeToChangeStatusEvent(observer: self, selector: #selector(changeStatus(_:)))
+            NotificationHelper.sharedInstance.subscribeToReachabilityChanged(observer: self, selector: #selector(changeWifiIconColor(_:)))
             
             self.hasSubscribedToNotifications = true
         }
@@ -245,6 +246,13 @@ import Dyson
         let status = notification.userInfo?["status"] as! Int
         let command = CDVPluginHelper.sharedInstance.getJavascriptChangeStatusCommandFor(status : status)
         Logger.sharedInstance.logInfo(info: "changeStatus : \(command)")
+        self.commandDelegate.evalJs(command)
+    }
+    
+    @objc private func changeWifiIconColor(_ notification : NSNotification){
+        let colorStatus = notification.userInfo?["ColorStatus"] as! String
+        let command = CDVPluginHelper.sharedInstance.getUpdateWifiIconCommandFor(NetworkStatusColor : colorStatus)
+        Logger.sharedInstance.logInfo(info: "changeColorStatus : \(command)")
         self.commandDelegate.evalJs(command)
     }
     
