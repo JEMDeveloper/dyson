@@ -43,8 +43,8 @@ var Dyson = {
         exec(success, null, PLUGIN_NAME, 'getEnrollmentProgress', []);
     },
 
-    getCompleteUploadIds: function (success) {
-        exec(success, null, PLUGIN_NAME, 'getCompleteUploadIds', []);
+    getCompleteUploadIds: function (success,arrayOfIdsToCheck) {
+        exec(success, null, PLUGIN_NAME, 'getCompleteUploadIds', arrayOfIdsToCheck);
     },
 
     startTransmissionOfUploads: function () {

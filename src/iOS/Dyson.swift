@@ -79,12 +79,13 @@ import Dyson
     @objc(getCompleteUploadIds:)
     func getCompleteUploadIds(command: CDVInvokedUrlCommand) {
         
-        var pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: [])
-        if let uploadCompleted = self.completedUploadsIds
+        var result = ""
+        if let arrayOfIdsToCheck = command.arguments as? [String]
         {
-            pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: Array(uploadCompleted))
+            result = UploadManager.sharedInstance.retrieveSentStatusOfEnrollmentsWith(messageIds: arrayOfIdsToCheck)
         }
-        
+        Logger.sharedInstance.logInfo(info: "getCompleteUploadIds Sending result : \(result)")
+        let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: result)
         self.commandDelegate!.send(
             pluginResult,
             callbackId: command.callbackId
