@@ -39,8 +39,8 @@ var Dyson = {
         exec(success, failure, PLUGIN_NAME, 'getPendingUploads', []);
     },
 
-    getEnrollmentProgress: function (success) {
-        exec(success, null, PLUGIN_NAME, 'getEnrollmentProgress', []);
+    getEnrollmentProgress: function (success,failure) {
+        exec(success, failure, PLUGIN_NAME, 'getEnrollmentProgress', []);
     },
 
     getCompleteUploadIds: function (success,arrayOfIdsToCheck) {
@@ -61,6 +61,40 @@ var Dyson = {
 
     getPendingEnrollmentsCountExcludingEnrollmentKey: function(success,enrollmentKey) {
         exec(success, null, PLUGIN_NAME, 'getPendingEnrollmentsCountExcludingEnrollmentKey', [enrollmentKey]);
+    },
+
+    updateIcNumber: function(icNumber){
+        exec(null, null, PLUGIN_NAME, 'updateIcNumber', [icNumber]);
+    },
+
+    addLogsToAnalytics: function(data){
+        var name = data.name || '';
+        var title = data.title || '';
+        var body = data.body || '';
+        var status = data.status || '';
+        var url = data.url || '';
+        var method = data.method || '';
+        var messageUniqueId = data.messageUniqueId || '';
+        var errorMessage = data.error || '';
+
+        exec(null, null, PLUGIN_NAME, 'addLogsToAnalytics', [name, title, body, status, url, method, messageUniqueId, errorMessage]);
+    },
+
+    sendFPRCLifeCycleEvent: function(data){
+        var reservationCodes = data.reservationCodes && data.reservationCodes.join() || '';
+        var fprcCode = data.fprcCode && data.fprcCode.join() || '';
+        var stage = data.stage || '';
+        var methodName = data.methodName || '';
+        var messageUniqueId = data.messageUniqueId || '';
+        var jurisdiction = data.jurisdiction || '';
+
+        // var codes = {"fprcCode":fprcCode, "reservationCodes": reservationCodes};
+        // var codesString = JSON.stringify(codes);
+        exec(null, null, PLUGIN_NAME, 'sendFPRCLifeCycleEvent', [fprcCode, reservationCodes, methodName, stage, messageUniqueId, jurisdiction]);
+    },
+
+    getBlackoutConfigFromServer: function(success, failure) {
+    	exec(success, failure, PLUGIN_NAME, 'getBlackoutConfigFromServer', []);
     }
 
 };

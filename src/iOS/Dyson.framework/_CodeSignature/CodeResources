@@ -30,23 +30,23 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		qwPxNo6lRGq6LvgUNOt5T9huLXk=
+		YAqH+V6PoPrvnPOdSf0jTyBPmn8=
 		</data>
 		<key>Modules/Dyson.swiftmodule/arm.swiftdoc</key>
 		<data>
-		QqE3CZ2488HBS1j4hMJCcZGAj8M=
+		7nkJ4hNcU0qCr+xcOmL6iLL2Sw4=
 		</data>
 		<key>Modules/Dyson.swiftmodule/arm.swiftmodule</key>
 		<data>
-		cPhBy8lOKfgEe+LzZ6YdujjeOEQ=
+		UmIE5CIslJNwQZ2NxLe+LWD7aE8=
 		</data>
 		<key>Modules/Dyson.swiftmodule/arm64.swiftdoc</key>
 		<data>
-		wx15ccj1vZOldzx0Dy8RyUWbo2g=
+		XgF81drExADxqcqRBBwnsrYPD7M=
 		</data>
 		<key>Modules/Dyson.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		RaTP8TlMK4PVUD0i6DoR0azo5dc=
+		sioshAqyka8PeapoDqLrW5bJCPc=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -125,44 +125,44 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			QqE3CZ2488HBS1j4hMJCcZGAj8M=
+			7nkJ4hNcU0qCr+xcOmL6iLL2Sw4=
 			</data>
 			<key>hash2</key>
 			<data>
-			Kab5p28m4l/2Y44/p3FD9WOhjiqBJEAZiKmsomt/irU=
+			5Mld7Qjk10Ys+5k52o9xx5K3qovsPfYXGwPffy36yg4=
 			</data>
 		</dict>
 		<key>Modules/Dyson.swiftmodule/arm.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			cPhBy8lOKfgEe+LzZ6YdujjeOEQ=
+			UmIE5CIslJNwQZ2NxLe+LWD7aE8=
 			</data>
 			<key>hash2</key>
 			<data>
-			ORtLSM8MbAh+gfJRkepi5GeSUwNHHXolfmTDXnCzq0o=
+			tkDsHo+u7+WeEMOiHmgXqIqXnNDZ0krjnY74SgxBkBQ=
 			</data>
 		</dict>
 		<key>Modules/Dyson.swiftmodule/arm64.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			wx15ccj1vZOldzx0Dy8RyUWbo2g=
+			XgF81drExADxqcqRBBwnsrYPD7M=
 			</data>
 			<key>hash2</key>
 			<data>
-			CKDoCdlH6Aomh07z0+m0tkFevv1mhm2l1RLZ2zVx81E=
+			ZVl01AG/j8R6ioE2Qgw0ZVdqaeYAXrAHfwvInozFrFY=
 			</data>
 		</dict>
 		<key>Modules/Dyson.swiftmodule/arm64.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			RaTP8TlMK4PVUD0i6DoR0azo5dc=
+			sioshAqyka8PeapoDqLrW5bJCPc=
 			</data>
 			<key>hash2</key>
 			<data>
-			xgcrKGBp8z/0AbextY8fTm642KTrCCYl2krSUA4eASk=
+			Tm4SabkFEIzYWUwiLGtesh/ens86bOUaeYZlo6C9jVE=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
@@ -179,7 +179,7 @@
 	</dict>
 	<key>rules</key>
 	<dict>
-		<key>^</key>
+		<key>^.*</key>
 		<true/>
 		<key>^.*\.lproj/</key>
 		<dict>
@@ -210,24 +210,12 @@
 			<key>weight</key>
 			<real>11</real>
 		</dict>
-		<key>^</key>
-		<dict>
-			<key>weight</key>
-			<real>20</real>
-		</dict>
 		<key>^(.*/)?\.DS_Store$</key>
 		<dict>
 			<key>omit</key>
 			<true/>
 			<key>weight</key>
 			<real>2000</real>
-		</dict>
-		<key>^(Frameworks|SharedFrameworks|PlugIns|Plug-ins|XPCServices|Helpers|MacOS|Library/(Automator|Spotlight|LoginItems))/</key>
-		<dict>
-			<key>nested</key>
-			<true/>
-			<key>weight</key>
-			<real>10</real>
 		</dict>
 		<key>^.*</key>
 		<true/>
@@ -263,13 +251,6 @@
 			<true/>
 			<key>weight</key>
 			<real>20</real>
-		</dict>
-		<key>^[^/]+$</key>
-		<dict>
-			<key>nested</key>
-			<true/>
-			<key>weight</key>
-			<real>10</real>
 		</dict>
 		<key>^embedded\.provisionprofile$</key>
 		<dict>
