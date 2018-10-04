@@ -11,16 +11,6 @@ import Dyson
         
         self.completedUploadsIds = Set<String>()
         
-        if !hasSubscribedToNotifications
-        {
-            NotificationHelper.sharedInstance.subscribeToPendingUploadsEvent(observer: self, selector: #selector(updateUploadsLeft(_:)))
-            NotificationHelper.sharedInstance.subscribeToUploadCompletedEvent(observer: self, selector: #selector(uploadCompleted(_:)))
-            NotificationHelper.sharedInstance.subscribeToChangeStatusEvent(observer: self, selector: #selector(changeStatus(_:)))
-            NotificationHelper.sharedInstance.subscribeToReachabilityChanged(observer: self, selector: #selector(changeWifiIconColor(_:)))
-            
-            self.hasSubscribedToNotifications = true
-        }
-        
         //        UploadManager.sharedInstance.emptyDataBase()
         
         var pluginResult = CDVPluginResult(
@@ -41,6 +31,16 @@ import Dyson
                 status: CDVCommandStatus_ERROR,
                 messageAs: "Environment Update Failed"
             )
+        }
+        
+        if !hasSubscribedToNotifications
+        {
+            NotificationHelper.sharedInstance.subscribeToPendingUploadsEvent(observer: self, selector: #selector(updateUploadsLeft(_:)))
+            NotificationHelper.sharedInstance.subscribeToUploadCompletedEvent(observer: self, selector: #selector(uploadCompleted(_:)))
+            NotificationHelper.sharedInstance.subscribeToChangeStatusEvent(observer: self, selector: #selector(changeStatus(_:)))
+            NotificationHelper.sharedInstance.subscribeToReachabilityChanged(observer: self, selector: #selector(changeWifiIconColor(_:)))
+            
+            self.hasSubscribedToNotifications = true
         }
         
         self.commandDelegate!.send(
@@ -90,6 +90,15 @@ import Dyson
             pluginResult,
             callbackId: command.callbackId
         )
+    }
+    
+    @objc(updateIcNumber:)
+    func updateIcNumber(command: CDVInvokedUrlCommand) {
+        if let icNumber = command.arguments[0] as? String
+        {
+            Logger.sharedInstance.logInfo(info: "Setting ICNumber : \(icNumber)")
+            UploadManager.sharedInstance.update(ICNumber: icNumber)
+        }
     }
     
     @objc(startTransmissionOfUploadsOnLogin:)

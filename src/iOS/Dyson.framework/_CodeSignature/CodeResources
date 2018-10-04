@@ -38,7 +38,7 @@
 		</data>
 		<key>Modules/Dyson.swiftmodule/arm.swiftmodule</key>
 		<data>
-		6ndYws1psvPwoqQ+maHMXe+BHic=
+		/6xLZRtefOmVjHMvioYdrY+iJJU=
 		</data>
 		<key>Modules/Dyson.swiftmodule/arm64.swiftdoc</key>
 		<data>
@@ -46,7 +46,7 @@
 		</data>
 		<key>Modules/Dyson.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		maHDC2TjGT807esOI+zvAa/9Dqc=
+		x7OOo5I7VXdehCijYAEMJG7/hwU=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -136,11 +136,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			6ndYws1psvPwoqQ+maHMXe+BHic=
+			/6xLZRtefOmVjHMvioYdrY+iJJU=
 			</data>
 			<key>hash2</key>
 			<data>
-			c4F98YgvyLD3Q//YduG4XeycRfDI6spWbEv/S3CBCD4=
+			pKFIqMtNJM+nOYboh0BvGDD3rnSW42MYH7ZS3ehAdas=
 			</data>
 		</dict>
 		<key>Modules/Dyson.swiftmodule/arm64.swiftdoc</key>
@@ -158,11 +158,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			maHDC2TjGT807esOI+zvAa/9Dqc=
+			x7OOo5I7VXdehCijYAEMJG7/hwU=
 			</data>
 			<key>hash2</key>
 			<data>
-			cmefaV0GMY5/3Zt9D+oGNovZYqMH3VhUBsSgGFJ5ADQ=
+			BtYqP3cKWyfaaAQ3g7dabwugdcdfSzKdenmr8f7jYaA=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

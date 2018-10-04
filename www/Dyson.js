@@ -61,6 +61,10 @@ var Dyson = {
 
     getPendingEnrollmentsCountExcludingEnrollmentKey: function(success,enrollmentKey) {
         exec(success, null, PLUGIN_NAME, 'getPendingEnrollmentsCountExcludingEnrollmentKey', [enrollmentKey]);
+    },
+
+    updateIcNumber: function(icNumber){
+        exec(null, null, PLUGIN_NAME, 'updateIcNumber', [icNumber]);
     }
 
 };
