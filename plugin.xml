@@ -27,9 +27,7 @@
         <source-file src="src/ios/Dyson.swift"/>
 
         <!--<source-file src="src/iOS/Dyson.framework" target-dir="lib" framework="true" />-->
-        <framework src="src/iOS/AppCenter/AppCenter.framework" custom="true" embed="true"/>
-        <framework src="src/iOS/AppCenter/AppCenterCrashes.framework" custom="true" embed="true"/>
-        <framework src="src/iOS/AppCenter/AppCenterAnalytics.framework" custom="true" embed="true"/>
+
         <framework src="src/iOS/Dyson.framework" custom="true" embed="true"/>
 
         <resource-file src="src/iOS/Dyson.framework/Enrollment.momd" target="Enrollment.momd" />
