@@ -141,6 +141,7 @@ import Dyson
 
                 let enrollmentEntry = ACPTModel(uniqueMessageID: uniqueId, data: enrollmentData, status: "\(EnrollmentStatusType.SEND_TO_HQ_INITIATED)", enrollmentIdentifier: enrollmentIdentifier, rCount: 0)
 
+                UploadManager.sharedInstance.currentEnrollmentKey = enrollmentIdentifier
                 UploadManager.sharedInstance.startTransmissionOfCompleteEnrollment(entry: enrollmentEntry)
                 { (error, response) in
 
@@ -199,6 +200,7 @@ import Dyson
             DispatchQueue.global(qos: .background).async {
                 let enrollmentEntry = ACPTModel(uniqueMessageID: uniqueId, data: enrollmentData, status: "\(EnrollmentStatusType.SEND_TO_BLOB_INITIATED)", enrollmentIdentifier: enrollmentIdentifier, rCount: 0)
 
+                UploadManager.sharedInstance.currentEnrollmentKey = enrollmentIdentifier
                 UploadManager.sharedInstance.startTransmissionOfBlob(entry: enrollmentEntry, blobFolder: blobFolder)
                 {
                     (error, response) in
