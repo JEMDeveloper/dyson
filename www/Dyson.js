@@ -67,14 +67,17 @@ var Dyson = {
         exec(null, null, PLUGIN_NAME, 'updateIcNumber', [icNumber]);
     },
 
-    addLogsToAnalytics: function(failure, data){
-        var name = data.name;
-        var title = data.title;
+    addLogsToAnalytics: function(data){
+        var name = data.name || '';
+        var title = data.title || '';
         var body = data.body || '';
-        var status = data.status;
+        var status = data.status || '';
+        var url = data.url || '';
+        var method = data.method || '';
+        var messageUniqueId = data.messageUniqueId || '';
         var errorMessage = data.error || '';
 
-        exec(null, failure, PLUGIN_NAME, 'addLogsToAnalytics', [name, title, body, status, errorMessage]);
+        exec(null, null, PLUGIN_NAME, 'addLogsToAnalytics', [name, title, body, status, url, method, messageUniqueId, errorMessage]);
     }
 
 };

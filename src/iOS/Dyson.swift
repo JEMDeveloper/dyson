@@ -66,45 +66,44 @@ import Dyson
     @objc(addLogsToAnalytics:)
     func addLogsToAnalytics(command: CDVInvokedUrlCommand) {
         
-        if let name = command.arguments[0] as? String,
-            let title = command.arguments[1] as? String,
-            let body = command.arguments[2] as? String,
-            let status = command.arguments[3] as? String,
-            let errorMessage = command.arguments[4] as? String
-        {
-            
-            var properties = [String:String]()
-            properties["name"] = name
-            properties["title"] = title
-            properties["status"] = status
-            properties["icNumber"] = UploadManager.sharedInstance.icNumber
-            
-            if errorMessage != "" {
-                properties["errorMessage"] = errorMessage
-            }
-            else {
-                properties["body"] = body
-            }
-            
+        if let arguments = command.arguments as? [String] {
+            let properties = getSplunkLogPropertiesFrom(arguments)
             Logger.sharedInstance.logInfo(info: "Properties : \(properties)")
-            
             UploadManager.sharedInstance.uploadLogsToAnalyticsWith(Properties: properties)
-        }
-        else
-        {
-            let pluginResult = CDVPluginResult(
-                status: CDVCommandStatus_ERROR,
-                messageAs: "Invalid parameters"
-            )
-            
-            self.commandDelegate!.send(
-                pluginResult,
-                callbackId: command.callbackId
-            )
         }
         
     }
 
+    func getSplunkLogPropertiesFrom(_ arguments : [String]) -> [String:String]{
+       
+        var result = [String:String]()
+        var properties = ["name",               //0
+                          "title",              //1
+                          "body",               //2
+                          "status",             //3
+                          "url",                //4
+                          "method",             //5
+                          "messageUniqueId",    //6
+                          "errorMessage"]       //7
+        
+        if properties.count == arguments.count {
+            for index in 0...properties.count-1 {
+                let property = properties[index]
+                let argument = arguments[index]
+                if argument != "" && argument != "{}" {
+                    result[property] = argument
+                }
+            }
+            
+            result["icNumber"] = UploadManager.sharedInstance.icNumber
+        }
+        else {
+            Logger.sharedInstance.logError(error: "Invalid arguments receieved!")
+        }
+        
+        return result
+    }
+    
     @objc(getEnrollmentProgress:)
     func getEnrollmentProgress(command: CDVInvokedUrlCommand) {
 
