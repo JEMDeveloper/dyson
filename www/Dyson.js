@@ -70,7 +70,7 @@ var Dyson = {
     addLogsToAnalytics: function(failure, data){
         var name = data.name;
         var title = data.title;
-        var body = data.body;
+        var body = data.body || '';
         var status = data.status;
         var errorMessage = data.error || '';
 
