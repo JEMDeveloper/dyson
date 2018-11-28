@@ -65,6 +65,16 @@ var Dyson = {
 
     updateIcNumber: function(icNumber){
         exec(null, null, PLUGIN_NAME, 'updateIcNumber', [icNumber]);
+    },
+
+    addLogsToAnalytics: function(failure, data){
+        var name = data.name;
+        var title = data.title;
+        var body = data.body;
+        var status = data.status;
+        var errorMessage = data.error || '';
+
+        exec(null, failure, PLUGIN_NAME, 'addLogsToAnalytics', [name, title, body, status, errorMessage]);
     }
 
 };
