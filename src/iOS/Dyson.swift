@@ -70,7 +70,7 @@ import Dyson
             let title = command.arguments[1] as? String,
             let body = command.arguments[2] as? String,
             let status = command.arguments[3] as? String,
-            let errorMessage = command.arguments[3] as? String
+            let errorMessage = command.arguments[4] as? String
         {
             
             var properties = [String:String]()
@@ -86,7 +86,7 @@ import Dyson
                 properties["body"] = body
             }
             
-            Logger.sharedInstance.logInfo(info: "Properties : \([])")
+            Logger.sharedInstance.logInfo(info: "Properties : \(properties)")
             
             UploadManager.sharedInstance.uploadLogsToAnalyticsWith(Properties: properties)
         }
