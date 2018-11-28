@@ -65,26 +65,29 @@ import Dyson
 
     @objc(addLogsToAnalytics:)
     func addLogsToAnalytics(command: CDVInvokedUrlCommand) {
-
+        
         if let name = command.arguments[0] as? String,
             let title = command.arguments[1] as? String,
             let body = command.arguments[2] as? String,
             let status = command.arguments[3] as? String,
             let errorMessage = command.arguments[3] as? String
         {
-
+            
             var properties = [String:String]()
             properties["name"] = name
             properties["title"] = title
             properties["status"] = status
-
+            properties["icNumber"] = UploadManager.sharedInstance.icNumber
+            
             if errorMessage != "" {
                 properties["errorMessage"] = errorMessage
             }
             else {
                 properties["body"] = body
             }
-
+            
+            Logger.sharedInstance.logInfo(info: "Properties : \([])")
+            
             UploadManager.sharedInstance.uploadLogsToAnalyticsWith(Properties: properties)
         }
         else
@@ -93,13 +96,13 @@ import Dyson
                 status: CDVCommandStatus_ERROR,
                 messageAs: "Invalid parameters"
             )
-
+            
             self.commandDelegate!.send(
                 pluginResult,
                 callbackId: command.callbackId
             )
         }
-
+        
     }
 
     @objc(getEnrollmentProgress:)
