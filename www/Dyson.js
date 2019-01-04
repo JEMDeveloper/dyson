@@ -78,6 +78,17 @@ var Dyson = {
         var errorMessage = data.error || '';
 
         exec(null, null, PLUGIN_NAME, 'addLogsToAnalytics', [name, title, body, status, url, method, messageUniqueId, errorMessage]);
+    },
+
+    sendFPRCLifeCycleEvent: function(data){
+        var reservationCodes = data.reservationCodes && data.reservationCodes.join() || '';
+        var fprcCode = data.fprcCode && data.fprcCode.join() || '';
+        var stage = data.stage || '';
+        var methodName = data.methodName || '';
+        var messageUniqueId = data.messageUniqueId || '';
+        var jurisdiction = data.jurisdiction || '';
+
+        exec(null, null, PLUGIN_NAME, 'sendFPRCLifeCycleEvent', [reservationCodes, fprcCode, stage, methodName, messageUniqueId, jurisdiction]);
     }
 
 };
