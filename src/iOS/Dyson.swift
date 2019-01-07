@@ -67,10 +67,12 @@ import Dyson
 
         var result = [String:String]()
         var properties = [
-                          "codes",                  //0
-                          "stage",                  //1
-                          "messageUniqueId",        //2
-                          "jurisdiction"]           //3
+                          "fprcCode",                   //0
+                          "reservationCodes",           //1
+                          "methodName",                 //2
+                          "stage",                      //3
+                          "messageUniqueId",            //4
+                          "jurisdiction"]               //5
 
         if properties.count == arguments.count {
             for index in 0...properties.count-1 {

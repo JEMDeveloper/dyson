@@ -84,13 +84,13 @@ var Dyson = {
         var reservationCodes = data.reservationCodes && data.reservationCodes.join() || '';
         var fprcCode = data.fprcCode && data.fprcCode.join() || '';
         var stage = data.stage || '';
-        // var methodName = data.methodName || '';
+        var methodName = data.methodName || '';
         var messageUniqueId = data.messageUniqueId || '';
         var jurisdiction = data.jurisdiction || '';
 
-        var codes = {"fprcCode":fprcCode, "reservationCodes": reservationCodes};
-        var codesString = JSON.stringify(codes);
-        exec(null, null, PLUGIN_NAME, 'sendFPRCLifeCycleEvent', [codesString, stage, messageUniqueId, jurisdiction]);
+        // var codes = {"fprcCode":fprcCode, "reservationCodes": reservationCodes};
+        // var codesString = JSON.stringify(codes);
+        exec(null, null, PLUGIN_NAME, 'sendFPRCLifeCycleEvent', [fprcCode, reservationCodes, stage, methodName, messageUniqueId, jurisdiction]);
     }
 
 };
