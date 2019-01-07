@@ -64,16 +64,14 @@ import Dyson
     }
 
     private func getFPRCLifeCyclePropertiesFrom(_ arguments : [String]) -> [String:String]{
-        
+
         var result = [String:String]()
         var properties = [
-                          "reservationCodes",       //0
-                          "fprcCode",               //1
-                          "stage",                  //2
-                          "methodName",             //3
-                          "messageUniqueId",        //4
-                          "jurisdiction"]           //5
-        
+                          "codes",                  //0
+                          "stage",                  //1
+                          "messageUniqueId",        //2
+                          "jurisdiction"]           //3
+
         if properties.count == arguments.count {
             for index in 0...properties.count-1 {
                 let property = properties[index]
@@ -82,30 +80,31 @@ import Dyson
                     result[property] = argument
                 }
             }
-            
+
             result["icNumber"] = UploadManager.sharedInstance.icNumber
         }
         else {
             Logger.sharedInstance.logError(error: "Invalid arguments receieved!")
         }
-        
+
         return result
-        
+
     }
-    
+
     @objc(sendFPRCLifeCycleEvent:)
     func sendFPRCLifeCycleEvent(command: CDVInvokedUrlCommand) {
-        
+
         if let arguments = command.arguments as? [String] {
             let properties = getFPRCLifeCyclePropertiesFrom(arguments)
             Logger.sharedInstance.logInfo(info: "Properties : \(properties)")
+            Logger.sharedInstance.logInfo(info: "Properties count : \(properties.count) and position of stage : \(properties.keys.index(of: "stage")?.hashValue)")
             UploadManager.sharedInstance.uploadEventToAnalytics(type: .FPRC_LIFECYCLE, withProperties: properties)
         }
-        
+
     }
-    
+
     private func getSplunkLogPropertiesFrom(_ arguments : [String]) -> [String:String]{
-        
+
         var result = [String:String]()
         var properties = ["name",               //0
             "title",              //1
@@ -115,7 +114,7 @@ import Dyson
             "method",             //5
             "messageUniqueId",    //6
             "errorMessage"]       //7
-        
+
         if properties.count == arguments.count {
             for index in 0...properties.count-1 {
                 let property = properties[index]
@@ -124,27 +123,27 @@ import Dyson
                     result[property] = argument
                 }
             }
-            
+
             result["icNumber"] = UploadManager.sharedInstance.icNumber
         }
         else {
             Logger.sharedInstance.logError(error: "Invalid arguments receieved!")
         }
-        
+
         return result
     }
-    
+
     @objc(addLogsToAnalytics:)
     func addLogsToAnalytics(command: CDVInvokedUrlCommand) {
-        
+
         if let arguments = command.arguments as? [String] {
             let properties = getSplunkLogPropertiesFrom(arguments)
             Logger.sharedInstance.logInfo(info: "Properties : \(properties)")
             UploadManager.sharedInstance.uploadEventToAnalytics(type: .SPLUNK_LOGS, withProperties: properties)
         }
-        
+
     }
-    
+
     @objc(getEnrollmentProgress:)
     func getEnrollmentProgress(command: CDVInvokedUrlCommand) {
 
