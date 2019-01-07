@@ -90,7 +90,7 @@ var Dyson = {
 
         // var codes = {"fprcCode":fprcCode, "reservationCodes": reservationCodes};
         // var codesString = JSON.stringify(codes);
-        exec(null, null, PLUGIN_NAME, 'sendFPRCLifeCycleEvent', [fprcCode, reservationCodes, stage, methodName, messageUniqueId, jurisdiction]);
+        exec(null, null, PLUGIN_NAME, 'sendFPRCLifeCycleEvent', [fprcCode, reservationCodes, methodName, stage, messageUniqueId, jurisdiction]);
     }
 
 };
